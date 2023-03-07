@@ -1,0 +1,38 @@
+create database trescapas;
+
+use trescapas;
+
+create table categoria(
+id int not null auto_increment,
+nombre varchar(255) not nul,
+primary key(id)
+);
+
+create table producto( 
+id int not null auto_increment,
+nombre varchar(255) not null,
+precio double(12,2) not null,
+idCategoria int not null,
+primary key(id),
+foreign key(idCategoria) references categoria(id) on delete cascade on update cascade
+);
+
+create table factura(
+id int not null,
+fecha date not null,
+monto double(12,2) not null,
+nit int not null,
+nombre varchar(255) not null,
+primary key(id)
+);
+
+create table detalleFactura(
+id int not null auto_increment,
+idFactura int not null,
+idProducto int not null,
+precio double(12,2) not null,
+cantidad int not null,
+primary key(id, idFactura),
+foreign key(idFactura) references factura(id) on delete cascade on update cascade,
+foreign key(idProducto) references producto(id) on delete cascade on update cascade
+);
